@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width"/>
+    <title>Lista de Veículos</title>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.theme.min.css}" rel="stylesheet"/>
+
+    <style>
+        .btn-primary {
+            background-color: #000000 !important;
+        }
+
+        @media only screen and (max-width: 768px) {
+
+            .form-group {
+                text-align: center !important;
+            }
+
+            .inline {
+                display: inline-block;
+            }
+
+            .center {
+                width: 100%;
+                text-align: center;
+                margin-top: 10px;
+            }
+        }
+
+        @media only screen and (min-width: 768px) {
+
+            .inline {
+                display: inline;
+            }
+
+            .center {
+                display: inline;
+            }
+
+            .container {
+                width: 70%
+            }
+        }
+
+        .table {
+            table-layout: fixed !important;
+        }
+
+        .form-group input {
+            margin: 10px 0;
+        }
+
+        .btn {
+            padding: 6px 50px !important;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="panel panel-default" style="margin:10px;">
+        <div class="panel-heading">
+            <h1 class="panel-title">Veículos</h1>
+        </div>
+        <div class="panel-body">
+
+            <form class="form-inline" th:action="@{/veiculos}" method="post" th:object="${veiculo}"
+                  style="margin: 20px 0">
+                <div class="form-group">
+
+                <span class="inline">
+                <input type="text" class="form-control" placeholder="Modelo" th:field=*{modelo}/>
+                <input type="text" class="form-control" placeholder="Marca" th:field=*{marca}/>
+                <input type="number" class="form-control" placeholder="Ano" th:field=*{anoFabricacao}/>
+                </span>
+
+                    <span class="inline">
+                <input type="text" class="form-control" placeholder="Cor" th:field=*{cor}/>
+                <input type="text" class="form-control" placeholder="litros" th:field="*{litro}"/>
+				<input type="text" class="form-control" placeholder="Km" th:field="*{km}"/>
+                </span>
+                    <div class="center">
+                        <button type="submit" class="btn btn-primary">Adicionar</button>
+                    </div>
+                </div>
+            </form>
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>Modelo</th>
+                    <th>Marca</th>
+                    <th>Ano</th>
+                    <th>Cor</th>
+                    <th>KM/L</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="veiculo : ${veiculos}">
+                    <td th:text="${veiculo.modelo}"></td>
+                    <td th:text="${veiculo.marca}"></td>
+                    <td th:text="${veiculo.anoFabricacao}"></td>
+                    <td th:text="${veiculo.cor}"></td>
+                    <td th:text="${veiculo.getAutonomia()}"></td>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
